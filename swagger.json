@@ -1,0 +1,1081 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "VALE API",
+        "description": "Express ile tasarlanmış Vale uygulaması için gerekli REST API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "tags": [{
+            "name": "Auth",
+            "description": "Kullanıcıların giriş çıkış işlemleri"
+        },
+        {
+            "name": "Carparks",
+            "description": "Otoparkları görüntüleme, düzenleme ve oluşturma işlemleri"
+        }
+    ],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "schemes": ["https", "http"],
+    "paths": {
+        "/api/signin": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Giriş Yapma",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "kullanıcı bilgileri girilir.",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "required": [],
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "default": "femresirvan@gmail.com"
+                            },
+                            "password": {
+                                "type": "string",
+                                "default": "123456789"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Giriş işlemi başarılı olduğunda gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Girişiniz başarıyla yapıldı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "sadasd",
+                                            "default": "ak^'%'&+^&dmssakm'KM!MK^!KMskmdakfmdsf"
+                                        },
+                                        "profile": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "default": "Fırat Emre ŞİRVAN"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "default": "femresirvan@gmail.com"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "default": "askdmka21k3m1mk"
+                                                },
+                                                "phoneNumber": {
+                                                    "type": "string",
+                                                    "default": "05053233232"
+                                                },
+                                                "reservation": {
+                                                    "properties": {
+                                                        "carParkId": {
+                                                            "type": "string",
+                                                            "default": "1"
+                                                        },
+                                                        "state": {
+                                                            "type": "boolean",
+                                                            "default": "false"
+                                                        },
+                                                        "reservationArea": {
+                                                            "type": "string",
+                                                            "default": "A1"
+                                                        }
+                                                    }
+                                                },
+                                                "licensePlate": {
+                                                    "type": "string",
+                                                    "default": "12 ADC 1212"
+                                                },
+                                                "vehicleType": {
+                                                    "type": "string",
+                                                    "default": "sedan"
+                                                },
+                                                "fuelType": {
+                                                    "type": "string",
+                                                    "default": "lpg"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "description": "Kullanıcının ihtiyacı olan data + resource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Email veya şifre bulunamazsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "404",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Verilen email bilgileri hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/signup": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Kayıt Olma",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Kayıt olunacak kullanıcı bilgileri girilir.",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "required": [],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "default": "Fırat Emre Şirvan"
+                            },
+                            "email": {
+                                "type": "string",
+                                "default": "femresirvan@gmail.com"
+                            },
+                            "password": {
+                                "type": "string",
+                                "default": "123456789"
+                            },
+                            "phoneNumber": {
+                                "type": "string",
+                                "default": "536-631-4162"
+                            },
+                            "licensePlate": {
+                                "type": "string",
+                                "default": "12 ADC 2525"
+                            },
+                            "vehicleType": {
+                                "type": "string",
+                                "default": "sedan"
+                            },
+                            "fuelType": {
+                                "type": "string",
+                                "default": "LPG"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Kayıt işlemi başarılı olduğunda gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Kaydınız başarıyla yapıldı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "profile": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "default": "Fırat Emre ŞİRVAN"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "default": "femresirvan@gmail.com"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "default": "askdmka21k3m1mk"
+                                                },
+                                                "phoneNumber": {
+                                                    "type": "string",
+                                                    "default": "05053233232"
+                                                },
+                                                "reservation": {
+                                                    "properties": {
+                                                        "carParkId": {
+                                                            "type": "string",
+                                                            "default": "1"
+                                                        },
+                                                        "state": {
+                                                            "type": "boolean",
+                                                            "default": "false"
+                                                        },
+                                                        "reservationArea": {
+                                                            "type": "string",
+                                                            "default": "A1"
+                                                        }
+                                                    }
+                                                },
+                                                "licensePlate": {
+                                                    "type": "string",
+                                                    "default": "12 ADC 1212"
+                                                },
+                                                "vehicleType": {
+                                                    "type": "string",
+                                                    "default": "sedan"
+                                                },
+                                                "fuelType": {
+                                                    "type": "string",
+                                                    "default": "lpg"
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmIyMjFjMmZmZTAxMmFlNDhkYzRmOCIsImlhdCI6MTYxNzYzMzgyMCwiZXhwIjoxNjE3NzIwMjIwfQ.2UUI6Og6OQSn3tW_CdQ-wbJtRvqHE6y2Rq9AB8Jod5A"
+                                        }
+                                    },
+                                    "description": "Kullanıcının ihtiyacı olan data + resource"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Aynı kayıt bilgilerinden olan kişi varsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "409",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Daha önceden bu phonenumber ile kaydolunmuş.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Kayıt bilgilerinde hata varsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "400",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen email adresi hatalı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/current_user": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Mevcut kullanıcı bilgilerini alma",
+                "security": [{
+                    "token": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı bilgileri doğru olarak verilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Kullanıcı bilgileri gönderildi.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "profile": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "default": "Fırat Emre ŞİRVAN"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "default": "femresirvan@gmail.com"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "default": "askdmka21k3m1mk"
+                                                },
+                                                "phoneNumber": {
+                                                    "type": "string",
+                                                    "default": "05053233232"
+                                                },
+                                                "reservation": {
+                                                    "properties": {
+                                                        "carParkId": {
+                                                            "type": "string",
+                                                            "default": "1"
+                                                        },
+                                                        "state": {
+                                                            "type": "boolean",
+                                                            "default": "false"
+                                                        },
+                                                        "reservationArea": {
+                                                            "type": "string",
+                                                            "default": "A1"
+                                                        }
+                                                    }
+                                                },
+                                                "licensePlate": {
+                                                    "type": "string",
+                                                    "default": "12 ADC 1212"
+                                                },
+                                                "vehicleType": {
+                                                    "type": "string",
+                                                    "default": "sedan"
+                                                },
+                                                "fuelType": {
+                                                    "type": "string",
+                                                    "default": "lpg"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "description": "Kullanıcının ihtiyacı olan data + resource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/carparks": {
+            "get": {
+                "tags": ["Carparks"],
+                "summary": "Bütün otoparkların özet bilgilerini görüntüleme",
+                "security": [{
+                    "token": []
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Otopark verileri doğru olarak verilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Otopark bilgileri gönderildi.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Carpark"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Carparks"],
+                "summary": "Yeni otopark kaydı oluşturma",
+                "security": [{
+                    "token": []
+                }],
+                "parameters": [{
+                    "name": "carpark",
+                    "in": "body",
+                    "description": "Yeni oluşturalacak otopark bilgileri girilir.",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "required": [],
+                        "properties": {
+                            "carparkName": {
+                                "type": "string"
+                            },
+                            "areas": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "areaName": {
+                                            "type": "string"
+                                        },
+                                        "_id": {
+                                            "type": "string"
+                                        },
+                                        "remainingTime": {
+                                            "type": "number",
+                                            "default": 0
+                                        }
+                                    }
+                                }
+                            },
+                            "carparkAttendant": {
+                                "type": "string"
+                            },
+                            "contact": {
+                                "type": "string"
+                            },
+                            "latitude": {
+                                "type": "number"
+                            },
+                            "longitude": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Başarıyla kayıt yapıldığında verilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Database'e ekleme yapıldı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Carpark"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Syntax hatası olursa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "400",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Lütfen bütün alanları doğru bir şekilde doldurun.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "internalMessage": {
+                                    "type": "string",
+                                    "default": "_id length must be 24 characters long",
+                                    "description": "yazılımcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unique alanlardan daha önce kayıt yapılmışsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "400",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Daha önceden bu contact ile otopark kaydedilmiş.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/carparks/{id}": {
+            "get": {
+                "tags": ["Carparks"],
+                "summary": "Belirtilen id'deki otoparkın detaylı bilgilerini görüntüleme",
+                "security": [{
+                    "token": []
+                }],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Otopark ID'si girilir",
+                    "required": true,
+                    "type": "string"
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Spesifik otoparkın bilgileri detaylı olarak verilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Bilmemne otoparkı bilgileri gönderildi.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Carpark"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Belirtilen id'de otopark bulunamazsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "400",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen id'de otopark bulunamadı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Carparks"],
+                "summary": "Otopark bilgilerini güncelleme",
+                "security": [{
+                    "token": []
+                }],
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Otopark ID'si girilir",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Area",
+                        "in": "body",
+                        "description": "Güncellenecek otopark alanı objesi girilir.",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "areaName": {
+                                    "type": "string",
+                                    "default": "true",
+                                    "description": "Alan adı"
+                                },
+                                "remainingTime": {
+                                    "type": "string",
+                                    "default": "200",
+                                    "description": "Rezervasyon için kalan süre"
+                                },
+                                "_id": {
+                                    "type": "string",
+                                    "default": "24charuzunlugunda_iddsfsdf",
+                                    "description": "alanın id'si"
+                                },
+                                "reservationState": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "Rezervasyon durumu tutulur."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Otopark başarıyla güncellendiğinde verilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Otopark başarıyla güncellendi.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Güncelleme yapılmadığında gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "409",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Rezerve edilen yeri tekrar rezerve edemezsiniz.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "internalMessage": {
+                                    "type": "string",
+                                    "default": "Database'de bir güncelleme yapılmadı.",
+                                    "description": "yazılımcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Belirtilen id'de otopark bulunamazsa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "404",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen id'de otopark bulunamadı",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Syntax hatası olursa gönderilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "400",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Lütfen bütün alanları doğru bir şekilde doldurun.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                },
+                                "internalMessage": {
+                                    "type": "string",
+                                    "default": "_id length must be 24 characters long",
+                                    "description": "yazılımcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Çıkış yapma",
+                "security": [{
+                    "token": []
+                }],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Çıkış yapma işlemi başarılı olduğunda verilir.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "true",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "200",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Çıkış işlemi başarıyla yapıldı.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token bilgisi hatalı olunca gönderilir",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "default": "false",
+                                    "description": "İşlem başarılı mı değil mi"
+                                },
+                                "code": {
+                                    "type": "integer",
+                                    "default": "401",
+                                    "description": "Statü Kodu"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default": "Belirtilen token hatalıdır.",
+                                    "description": "Kullanıcıya verilecek mesaj"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "token": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "reservation": {
+                    "type": "object",
+                    "properties": {
+                        "carParkId": {
+                            "type": "string"
+                        },
+                        "state": {
+                            "type": "boolean"
+                        },
+                        "reservationArea": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "licensePlate": {
+                    "type": "string"
+                },
+                "fuelType": {
+                    "type": "string"
+                },
+                "vehicleType": {
+                    "type": "string"
+                }
+            }
+        },
+        "Carpark": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "carparkName": {
+                    "type": "string"
+                },
+                "areas": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "areaName": {
+                                "type": "string"
+                            },
+                            "remainingTime": {
+                                "type": "string"
+                            },
+                            "reservationState": {
+                                "type": "boolean",
+                                "default": "false"
+                            },
+                            "isFull": {
+                                "type": "boolean",
+                                "default": "false"
+                            },
+                            "_id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "carparkAttendant": {
+                    "type": "string"
+                },
+                "contact": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
